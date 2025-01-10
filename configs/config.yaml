@@ -1,0 +1,46 @@
+general:
+  seed: 42
+  mode: "train"  # or test
+  device: "cuda"
+
+data:
+  # for demonstration, using synthetic
+  synthetic_num_trajs: 500
+  synthetic_max_len: 50
+
+model:
+  d_out: 128
+  r_s: 16
+  r_t: 8
+  gating_threshold: 0.5
+  seg_transformer_layers: 2
+  seg_transformer_heads: 2
+  global_transformer_layers: 2
+  global_transformer_heads: 2
+
+train:
+  epochs: 5
+  batch_size: 32
+  learning_rate: 0.001
+  weight_decay: 1e-5
+  save_checkpoint: true
+  checkpoint_dir: "checkpoints/"
+  log_interval: 10
+  eval_interval: 1
+  # negative sampling
+  faiss_k: 10
+
+loss:
+  circle_margin: 0.25
+  circle_gamma: 64
+  triplet_margin: 1.0
+  seg_margin: 0.25
+  seg_gamma: 64
+  lambda_circle: 1.0
+  lambda_triplet: 1.0
+  lambda_seg: 0.5
+
+test:
+  # evaluation settings
+  batch_size: 32
+  checkpoint_path: "checkpoints/best_model.pth"
